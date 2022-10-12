@@ -4,19 +4,32 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --passWithNoTests --verbose --testMatch \"**/test/**/*.test.js\"",
+    "start": "node server.js",
+    "seed": "node seeds/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anguyen780/happy-little-trees.git"
   },
-  "author": "anguyen700",
+  "author": "anguyen780",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/anguyen780/happy-little-trees/issues"
   },
   "homepage": "https://github.com/anguyen780/happy-little-trees#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.0",
+    "connect-session-sequelize": "^7.1.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.7",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.0"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2"
   }
 }
