@@ -1,5 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connections');
+const sequelize = require('../config/connection');
 
 class WishlistItem extends Model { }
 
@@ -21,6 +21,8 @@ WishlistItem.init(
                 key: 'id'
             }
         },
+    },
+    {
         sequelize,
         freezeTableName: true,
         underscored: true,
