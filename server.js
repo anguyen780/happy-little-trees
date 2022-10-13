@@ -10,7 +10,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection');
 const routes = require('./routes');
 const csvReader = require('./model/csvReader');
-const { CSV } = require('./model/CSV');
+const { Video } = require('./model/Video');
 
 // app setup
 const app = express();
@@ -43,10 +43,10 @@ function setupRoutes() {
 // database setup
 async function setupSequelize() {
     await sequelize.sync({ force: false });
-    const count = await CSV.count();
+    const count = await Video.count();
     if(count === 0) {
         const csv = await csvReader();
-        CSV.bulkCreate(csv);
+        Video.bulkCreate(csv);
     }
 }
 
