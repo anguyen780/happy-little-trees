@@ -1,45 +1,28 @@
 require('dotenv').config();
+const e = require('express');
 const fetch = require('node-fetch');
 
 const YT_KEY = process.env.YT_KEY;
 
-const playlistItemsRoute = 'https://www.googleapis.com/youtube/v3/playlists';
-
-const withQueryParameters = function (url, params) {
-    let output = url + '?';
-    for(const param in params) {
-        if(Array.isArray(params[param])) {
-            output += 'part='
-            const array = params[param];
-            for(const i in array) {
-                output += encodeURIComponent(array[i]);
-                if(i < (array.length - 1)) {
-                    output += ',';
-                }
-            }
-        } else {
-            output += `${param}=${encodeURIComponent(params[param])}`;
-        }
-        output += '&';
-    }
-
-    output = output.substring(0, output.length - 2);
-
-    console.log(output);
-    return output;
-};
+const playlistItemsRoute = 'https://www.googleapis.com/youtube/v3/playlistItems';
 
 async function playlistItems(playlistId) {
-    const response = await fetch(
-        withQueryParameters(playlistItemsRoute, {
-            key: YT_KEY,
-            part: ['items', 'player', 'contentDetails', 'snippet'],
-            id: playlistId
-        })
-    );
-    console.log(await response.json());
+    const response = await fetch(`${playlistItemsRoute}?key=${YT_KEY}&playlistId=${playlistId}&part=contentDetails&maxResults=15`);
+    if(response.ok) {
+        const body = await response.json();
+        const videoIds = body.items.map(item => `https://youtube.com/watch?v=${item.contentDetails.videoId}`);
+        return videoIds;
+    } else {
+        throw new Error('Failed request: ', response.status);
+    }
 }
 
-playlistItems('PLAEQD0ULngi69x_7JbQvSMprLRK_KSVLu');
+async function multiplePlaylistItems(playlistIds) {
+    const playlists = [];
+    for(const playlistId of playlistIds) {
+        playlists.push(await playlistItems(playlistId));
+    }
+    return playlists;
+}
 
-module.exports = { playlistItems };
+module.exports = { playlistItems, multiplePlaylistItems };

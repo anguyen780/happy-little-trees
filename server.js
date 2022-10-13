@@ -11,6 +11,7 @@ const sequelize = require('./config/connection');
 const routes = require('./routes');
 const csvReader = require('./model/csvReader');
 const { Video } = require('./model/Video');
+const { multiplePlaylistItems } = require('./config/youtubeLinker');
 
 // app setup
 const app = express();
@@ -45,8 +46,11 @@ async function setupSequelize() {
     await sequelize.sync({ force: false });
     const count = await Video.count();
     if(count === 0) {
+        const playlistItemsPromise = multiplePlaylistItems(['PLAEQD0ULngi69x_7JbQvSMprLRK_KSVLu']);
         const csv = await csvReader();
-        Video.bulkCreate(csv);
+        const playlistItems = await playlistItemsPromise;
+        await Video.bulkCreate(csv);
+        console.log(JSON.stringify(playlistItems, null, 2));
     }
 }
 
