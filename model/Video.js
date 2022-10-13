@@ -13,30 +13,30 @@ Video.init(
 
     cvs_id: {
       type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'csv',
-          key: 'id'
-        }
+      allowNull: false,
+      references: {
+        model: 'csv',
+        key: 'id'
+      }
 
     },
     user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'user',
-          key: 'id'
-        }
-      },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
+    },
 
     //   url
     // season & episode
     // tags
-  }, 
+  },
   {
-  sequelize,
-  freezeTableName: true,
-  underscored: true,
-  modelName: 'video'
-});
+    sequelize,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'video'
+  });
 module.exports = Video;

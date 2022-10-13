@@ -10,7 +10,7 @@ Comment.init(
       primaryKey: true,
       autoIncrement: true
     },
-    body: {
+    content: {
       type: DataTypes.STRING,
     },
     user_id: {
@@ -21,11 +21,11 @@ Comment.init(
         key: 'id'
       }
     },
-  }, 
+  },
   {
-  sequelize,
-  freezeTableName: true,
-  underscored: true,
-  modelName: 'comment'
-});
+    sequelize,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'comment'
+  });
 module.exports = Comment;
