@@ -10,6 +10,16 @@ Video.init(
       primaryKey: true,
       autoIncrement: true
     },
+
+    cvs_id: {
+      type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'csv',
+          key: 'id'
+        }
+
+    },
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

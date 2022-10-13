@@ -2,6 +2,7 @@ const User = require('./User');
 const Comment = require('./Comment');
 const Video = require('./Video');
 const WishlistItem = require('./WishlistItem');
+const {CSV} = require('./CSV');
 
 User.hasMany(Comment,{
     foreignKey: 'user_id',
@@ -17,7 +18,11 @@ Comment.belongsTo(Video, {
 
 Video.hasMany(Comment, {
     foreignKey: 'user_id',
-})
+});
+
+Video.belongsTo(CSV, {
+    foreignKey: 'csv_id',
+});
 
 WishlistItem.belongsTo(User, {
     foreignKey: 'user_id',
@@ -46,4 +51,4 @@ WishlistItem.hasMany(Video, {
 // tags??
 
 
-module.exports = { User, Comment, Video, WishlistItem};
+module.exports = { User, Comment, Video, WishlistItem, CSV};
