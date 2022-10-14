@@ -19,8 +19,12 @@
       <a href="#" class="sidenav-trigger button-collapse" data-activates="mobile-nav">
       <a href="#" class="brand-logo center">Welcome to Happy Little Trees!</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {{#if logged_in}}
+        <li><a id="logout" href="/">Logout</a></li>
+        {{else}}
         <li><a href="/signup">Sign Up</a></li>
         <li><a href="/login">Login</a></li>
+        {{/if}}
         <li><a href="">Videos</a></li>
         <li><a href="">My Wishlist</a></li>
       </ul>
@@ -37,5 +41,8 @@
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-<script src="/public/js/index.js"></script>
+{{#if logged_in}}
+  <script src="./js/logout.js"></script>
+  {{/if}}
 </html>
+
