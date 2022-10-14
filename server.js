@@ -11,6 +11,7 @@ const sequelize = require('./config/connection');
 const routes = require('./routes');
 const csvReader = require('./model/csvReader');
 const { Video } = require('./model/Video');
+const links = require('./config/youtubeLinker');
 
 // app setup
 const app = express();
@@ -28,7 +29,7 @@ async function setupSession() {
         store: new SequelizeStore({
             db: sequelize
         })
-    }
+    };
     app.use(session(sess));
 }
 
@@ -38,7 +39,7 @@ function setupMiddleware() {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(express.static(path.join(__dirname, "js")));
-    
+
 }
 
 // handlebars setup
@@ -57,18 +58,30 @@ function setupRoutes() {
 async function setupSequelize() {
     await sequelize.sync({ force: false });
     const count = await Video.count();
-    if(count === 0) {
-        const csv = await csvReader();
-        Video.bulkCreate(csv);
+    if(count > 0) {
+        // returns null if the server is already setup
+        return null;
     }
+    // This code will run asynchronously and not stop the server from starting up
+    //we do this in order to make sure it doesn't lag
+    return Promise.all([links(), csvReader()])
+        .then(async ([urls, csv]) => {
+            for(const i in urls) {
+                csv[i].url = urls[i];
+            }
+            return await Video.bulkCreate(csv);
+        });
 }
 
 async function start() {
+    const sequelizeSetup = setupSequelize();
     await setupSession();
     setupMiddleware();
     setupHandlebars();
     setupRoutes();
-    await setupSequelize();
+
+    // wait for it here
+    await sequelizeSetup;
 
     // open server
     app.listen(PORT, () => {
