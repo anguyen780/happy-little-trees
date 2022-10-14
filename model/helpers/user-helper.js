@@ -11,10 +11,27 @@ async function createUser(username, password) {
 
 // user by id
 async function findUser(id) {
-    const userData = await User.findByPk({
-        id: id
+    const userData = await User.findByPk(id, {
+        attributes: {
+            exclude: ['password']
+        }
     });
     return userData;
 }
 
-module.exports = { createUser, findUser }
+// user by username and password
+async function findUserByUsernameAndPassword(username, password) {
+    const userData = await User.findOne({
+        where: {
+            username: username,
+            password, password
+        },
+        attributes: {
+            exclude: ['password']
+        }
+    });
+
+    return userData;
+}
+
+module.exports = { createUser, findUser, findUserByUsernameAndPassword };
