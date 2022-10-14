@@ -1,9 +1,10 @@
 const Comment = require("../Comment");
 
 // create comment
-async function createComment(content) {
+async function createComment(content, user_id) {
     const commentData = await Comment.create({
-        content: content
+        content: content,
+        user_id: user_id
     });
     return commentData;
 }
