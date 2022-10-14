@@ -1,6 +1,7 @@
 require('dotenv').config();
 const e = require('express');
 const fetch = require('node-fetch');
+const playlists = require('./playlists.json');
 
 const YT_KEY = process.env.YT_KEY;
 
@@ -13,6 +14,7 @@ async function playlistItems(playlistId) {
         const videoIds = body.items.map(item => `https://youtube.com/watch?v=${item.contentDetails.videoId}`);
         return videoIds;
     } else {
+        console.log(response.status);
         throw new Error('Failed request: ', response.status);
     }
 }
@@ -25,4 +27,16 @@ async function multiplePlaylistItems(playlistIds) {
     return playlists;
 }
 
-module.exports = { playlistItems, multiplePlaylistItems };
+const links = () => {
+    return multiplePlaylistItems(playlists).then((playlistItems) => {
+        const out = [];
+        for(const season of playlistItems) {
+            for(let i = 0; i < 13; i++) {
+                out.push(season[i]);
+            }
+        }
+        return out;
+    });
+};
+
+module.exports = links;
