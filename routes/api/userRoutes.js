@@ -1,12 +1,11 @@
-const e = require('express');
-const { findUserByUsernameAndPassword, createUser } = require('../../model/helpers/user-helper');
-
 const router = require('express').Router();
+const { findUserByUsername, createUser } = require('../../model/helpers/user-helper');
+const { badRequest, handleError } = require('./requestError');
 
-function createSessionForUser(res, user, callback) {
-    res.session.save(() => {
-        res.session.userId = user.id; // TODO maybe encrypt?
-        res.session.loggedIn = true;
+function createSessionForUser(req, user, callback) {
+    req.session.save(() => {
+        req.session.userId = user.id; // TODO maybe encrypt?
+        req.session.loggedIn = true;
         callback();
     });
 }
@@ -20,26 +19,23 @@ router.post('/', async (req, res) => {
     const { username, password } = req.body;
     try {
         if(!username) {
-            res.status(400).json({ message: 'missing username' });
-            return;
+            badRequest('missing username');
         }
 
         if(!password) {
-            res.status(400).json({ message: 'missing password' });
-            return;
+            badRequest('missing password');
         }
 
-        const user = await createUser(body.username, body.password);
+        const user = await createUser(username, password);
 
-        createSessionForUser(res, user, () => {
+        createSessionForUser(req, user, () => {
             res.status(201).json({
                 id: user.id,
                 username: user.username
             });
         });
     } catch(err) {
-        // TODO handle errors more gracefully
-        req.sendStatus(500);
+        handleError(err);
     }
 });
 
@@ -48,24 +44,31 @@ router.post('/login', async (req, res) => {
     // this should save a session and send back a 200 and the User JSON on success
     // on failure handle the error
 
-    const body = req.body;
+    const { username, password } = req.body;
     try {
-        const user = await findUserByUsernameAndPassword(body.username, body.password);
-        if(!user) {
-            // do not let them know which one!
-            res.status(400).json({ message: 'username or password is incorrect!' });
-            return;
+        if(!username) {
+            badRequest('missing username');
         }
 
-        createSessionForUser(res, user, () => {
+        if(!password) {
+            badRequest('missing password');
+        }
+
+        const user = await findUserByUsername(username);
+
+        if(!user || !(user.checkPassword(password))) {
+            // do not let them know which one!
+            badRequest('username or password is incorrect!');
+        }
+
+        createSessionForUser(req, user, () => {
             res.status(200).json({
                 id: user.id,
                 username: user.username
             });
         });
     } catch(err) {
-        // TODO handle errors more gracefully
-        res.sendStatus(500);
+        handleError(err);
     }
 });
 
@@ -79,7 +82,7 @@ router.post('/logout', (req, res) => {
             res.sendStatus(204);
         });
     } else {
-        req.sendStatus(200);
+        res.sendStatus(200);
     }
 });
 
