@@ -3,26 +3,53 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="/css/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Little Trees</title>
 </head>
 
 <body>
-  <nav>
+  <nav class="green darken-3">
     <div class="nav-wrapper green darken-3">
-      <a href="#" class="brand-logo" ><i class="fa-solid fa-tree"></i>Welcome to Happy Little Trees!</a>
+      <i class="fa-solid fa-tree"></i>
+      <a href="/" class="sidenav-trigger button-collapse" data-activates="mobile-nav">
+      <a href="#" class="brand-logo center">Welcome to Happy Little Trees!</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {{#if logged_in}}
+        <li><a id="logout" href="/">Logout</a></li>
+        {{else}}
+        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/login">Login</a></li>
+        {{/if}}
+        <li><a href="">Videos</a></li>
+        <li><a href="">My Wishlist</a></li>
+      </ul>
+      <ul class="sidenav" id="mobile-nav">
+        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/login">Login</a></li>
+        {{/if}}
+        <li><a href="">Videos</a></li>
+        <li><a href="">My Wishlist</a></li>
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </ul>
+      <ul class="sidenav" id="mobile-nav">
         <li><a href="/signup">Sign Up</a></li>
         <li><a href="/login">Login</a></li>
         <li><a href="">Videos</a></li>
         <li><a href="">My Wishlist</a></li>
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       </ul>
     </div>
   </nav>
   {{{body}}}
-  
-</body>
 
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+{{#if logged_in}}
+  <script src="./js/logout.js"></script>
+  {{/if}}
 </html>

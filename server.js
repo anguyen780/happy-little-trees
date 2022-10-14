@@ -20,6 +20,17 @@ const PORT = process.env.EXPRESS_PORT || process.env.PORT || 3001;
 // session setup
 async function setupSession() {
     // TODO
+    const sess = {
+
+        secret: process.env.YT_KEY,
+        cookie: {},
+        resave: false,
+        saveUninitialized: true,
+        store: new SequelizeStore({
+            db: sequelize
+        })
+    }
+    app.use(session(sess));
 }
 
 // middleware setup
@@ -27,6 +38,8 @@ function setupMiddleware() {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, "js")));
+    
 }
 
 // handlebars setup
