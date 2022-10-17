@@ -3,7 +3,7 @@ const Comment = require('./Comment');
 const { Video } = require('./Video');
 const WishlistItem = require('./WishlistItem');
 
-User.hasMany(Comment,{
+User.hasMany(Comment, {
     foreignKey: 'user_id',
 });
 
@@ -19,32 +19,16 @@ Video.hasMany(Comment, {
     foreignKey: 'user_id',
 });
 
-WishlistItem.belongsTo(User, {
-    foreignKey: 'user_id',
-});
-
-WishlistItem.hasMany(Video, {
+Video.belongsToMany(User, {
+    through: WishlistItem,
     foreignKey: 'video_id',
+    onDelete: 'CASCADE'
 });
 
-// User
-    // id
-        // has many comments
-// Comment
-    // id
-    // FK user_id
-    // body
-        // belongs to user
-// Video(link)
-    // id
-        // has many users
-// WishlistItem
-    // id
-    // FK user_id
-    // FK video_id
-        // belongs to user
-
-// tags??
-
+User.belongsToMany(Video, {
+    through: WishlistItem,
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+});
 
 module.exports = { User, Comment, Video, WishlistItem };
