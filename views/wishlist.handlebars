@@ -4,13 +4,12 @@
   {{#each wishlistItemData as |wishlist|}}
     <div class="row">
       <div class="col s9">
-        <h4><a href="/wishlist/:videoId"></a></h4>
+        <h4><a href="/videos/{{wishlist.wishlistItem.video_id}}">Test</a></h4>
       </div>
       <div class="col s2">
         <button
-          id="delete-video"
-          class="waves-effect waves-light btn"
-          data-id="{{wishlist.video_id}}"
+          class="delete-video waves-effect waves-light btn"
+          data-videoId="{{wishlist.wishlistItem.video_id}}"
         >DELETE</button>
       </div>
     </div>

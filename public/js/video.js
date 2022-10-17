@@ -2,7 +2,7 @@ const saveVideos = async (event) => {
     event.preventDefault();
 
     if (req.session.loggedIn){
-        const response = await fetch('/api/user/videos', {
+        const response = await fetch('/api/user/wishlist', {
             method: "POST",
             body: JSON.stringify({videoId}),
             headers: { "Content-Type": "application/json"},
@@ -16,4 +16,4 @@ const saveVideos = async (event) => {
     }
 };
 
-document.querySelector("#save-video").addEventListener("click", saveVideos);
+document.querySelector(".save-video").addEventListener("click", saveVideos);

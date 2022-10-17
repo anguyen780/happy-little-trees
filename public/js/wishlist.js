@@ -1,22 +1,28 @@
 const deleteWishList = async (event) => {
     event.preventDefault();
 
-    if (req.session.loggedIn){
-        const response = await fetch('/api/user/wishlist', {
-            method: "POST",
-            body: JSON.stringify({videoId}),
-            headers: { "Content-Type": "application/json"},
-        });
-
-        if (response.ok) {
-            
-        } else {
-            alert(response.status);
-        }
+    const videoId = event.target.getAttribute('data-videoId')
+    const response = await fetch('/api/user/wishlist', {
+        method: "DELETE",
+        body: JSON.stringify({ videoId: videoId }),
+        headers: { "Content-Type": "application/json" },
+    });
+    
+    if (response.ok) {
+        document.location.reload()
+    } else {
+        alert(response.status);
     }
+
 };
 
-document.querySelector("#delete-video").addEventListener("click", deleteWishList);
+const deleteVideoButtons = document.querySelector(".delete-video") 
+
+if (deleteVideoButtons){
+    deleteVideoButtons.addEventListener("click", deleteWishList);
+}
+
+
 
 
 
