@@ -1,4 +1,4 @@
-const Video = require("../Video");
+const { Video } = require("../index");
 
 //get video by id
 async function findVideo(id) {
