@@ -1,4 +1,4 @@
-const { Video, User } = require("../index");
+const { Video, User, WishlistItem } = require("../index");
 
 async function findWishList(id) {
     const user = await User.findByPk(id, {
@@ -12,4 +12,22 @@ async function findWishList(id) {
     return user.videos;
 }
 
-module.exports = { findWishList };
+async function createWishListItem(userId, videoId) {
+    const wishlistItem = await WishlistItem.create({
+        user_id: userId,
+        video_id: videoId
+    });
+
+    return wishlistItem;
+}
+
+async function deleteWishListItem(userId, videoId) {
+    await WishlistItem.destroy({
+        where: {
+            user_id: userId,
+            video_id: videoId
+        }
+    });
+}
+
+module.exports = { findWishList, createWishListItem, deleteWishListItem };
