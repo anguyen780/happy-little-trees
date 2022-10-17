@@ -37,6 +37,18 @@ User.init(
       beforeUpdate: async (updatedUserData) => {
         updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
         return updatedUserData;
+      },
+      beforeBulkCreate: async (newUsersData) => {
+        for(const newUserData of newUsersData) {
+          newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        }
+        return newUsersData;
+      },
+      beforeBulkUpdate: async (updatedUsersData) => {
+        for(const updatedUserData of updatedUsersData) {
+          updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        }
+        return updatedUsersData;
       }
     },
     sequelize,

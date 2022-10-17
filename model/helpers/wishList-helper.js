@@ -1,15 +1,15 @@
 const { Video, User } = require("../index");
 
 async function findWishList(id) {
-    const users = await User.findByPk(id, {
+    const user = await User.findByPk(id, {
         include: [
             {
-                model: Video
+                model: Video,
+                attributes: ['id', 'episode', 'title', 'url']
             }
         ]
     });
-    users.map(user => user.videos);
-    return;
+    return user.videos;
 }
 
 module.exports = { findWishList };
