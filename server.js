@@ -10,8 +10,8 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection');
 const routes = require('./routes');
 const csvReader = require('./model/csvReader');
-const { Video } = require('./model/Video');
 const links = require('./config/youtubeLinker');
+const { Video } = require('./model/Video');
 
 // app setup
 const app = express();
@@ -19,18 +19,32 @@ const PORT = process.env.EXPRESS_PORT || process.env.PORT || 3001;
 
 // session setup
 async function setupSession() {
-    // TODO
-    const sess = {
+    const secret = process.env.SESS_SECRET;
+    if(!secret)
+        throw new Error('No "SESS_SECRET" environment variable found! Make sure to set this via the .env file!');
 
-        secret: process.env.YT_KEY,
-        cookie: {},
+    let salt = process.env.SESS_SALT;
+    if(!salt) {
+        console.log('WARNING: No SESS_SALT environment variable found! A new one will be generated using bcrypt...');
+        salt = await bcrypt.genSalt(5);
+        console.log(`Salt: ${salt}`);
+        console.log("            ^ It's recommend you store this salt value in your .env file as SESS_SALT!");
+    }
+
+    const sess = session({
+        secret: await bcrypt.hash(secret, salt),
+        cookie: {
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+            sameSite: 'strict'
+        },
         resave: false,
         saveUninitialized: true,
         store: new SequelizeStore({
             db: sequelize
         })
-    };
-    app.use(session(sess));
+    });
+
+    app.use(sess);
 }
 
 // middleware setup
@@ -74,14 +88,11 @@ async function setupSequelize() {
 }
 
 async function start() {
-    const sequelizeSetup = setupSequelize();
+    await setupSequelize();
     await setupSession();
     setupMiddleware();
     setupHandlebars();
     setupRoutes();
-
-    // wait for it here
-    await sequelizeSetup;
 
     // open server
     app.listen(PORT, () => {

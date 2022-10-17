@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const { findUserByUsername, createUser } = require('../../model/helpers/user-helper');
+const { createWishListItem, deleteWishListItem } = require('../../model/helpers/wishList-helper');
 const { badRequest, handleError } = require('./requestError');
+const { requireAuth } = require('../auth');
+const { requireBody } = require('./middleware');
 
 function createSessionForUser(req, user, callback) {
     req.session.save(() => {
@@ -11,7 +14,7 @@ function createSessionForUser(req, user, callback) {
 }
 
 // create new user
-router.post('/', async (req, res) => {
+router.post('/', requireBody, async (req, res) => {
     // this should create a new User, send back a 201 and the User JSON,
     //as well as save the session on success
     // on failure handle the error
@@ -40,7 +43,7 @@ router.post('/', async (req, res) => {
 });
 
 // login to user session
-router.post('/login', async (req, res) => {
+router.post('/login', requireBody, async (req, res) => {
     // this should save a session and send back a 200 and the User JSON on success
     // on failure handle the error
 
@@ -83,6 +86,32 @@ router.post('/logout', (req, res) => {
         });
     } else {
         res.sendStatus(200);
+    }
+});
+
+router.post('/wishlist', requireAuth, requireBody, async (req, res) => {
+    const userId = req.session.userId;
+    const videoId = req.body.videoId;
+    try {
+        const wishlistItem = await createWishListItem(userId, videoId);
+        res.status(201);
+        res.json(wishlistItem);
+    } catch(err) {
+        handleError(err, res);
+    }
+});
+
+router.delete('/wishlist', requireAuth, requireBody, async (req, res) => {
+    const userId = req.session.userId;
+    const videoId = req.body.videoId;
+    try {
+        if(!videoId) {
+            badRequest('missing videoId parameter in body');
+        }
+        await deleteWishListItem(userId, videoId);
+        res.sendStatus(204);
+    } catch(err) {
+        handleError(err, res);
     }
 });
 
