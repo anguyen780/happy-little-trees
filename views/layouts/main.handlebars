@@ -17,7 +17,7 @@
   <nav class="green darken-3">
     <div class="nav-wrapper green darken-3">
       <i class="fa-solid fa-tree"></i>
-      <a href="/" class="brand-logo" style="font-size: 2.75vw;">Welcome to Happy Little Trees!</a>
+      <a href="/" class="brand-logo center" style="font-size: 2.75vw;">Welcome to Happy Little Trees!</a>
       <a href="/" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         {{#if logged_in}}
@@ -29,23 +29,25 @@
         <li><a href="">Videos</a></li>
         <li><a href="">My Wishlist</a></li>
       </ul>
-      </nav>
-      <ul class="sidenav" id="mobile-nav">
-        <li><a href="/signup">Sign Up</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="">Videos</a></li>
-        <li><a href="">My Wishlist</a></li>
-        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      </ul>
-    </div>
-  
+  </nav>
+  <ul class="sidenav" id="mobile-nav">
+    <li><a href="/signup">Sign Up</a></li>
+    <li><a href="/login">Login</a></li>
+    <li><a href="">Videos</a></li>
+    <li><a href="">My Wishlist</a></li>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </ul>
+  </div>
+
   {{{body}}}
 
 </body>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="/js/index.js"></script>
 {{#if logged_in}}
-  <script src="./js/logout.js"></script>
-  {{/if}}
+<script src="./js/logout.js"></script>
+{{/if}}
+
 </html>

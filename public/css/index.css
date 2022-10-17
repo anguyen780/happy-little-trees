@@ -15,7 +15,11 @@ nav ul {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+.responsive-video {
+    padding: 2rem;
+}
+
 p {
     font-weight: bold;
-    padding: 1.5vw;
+    padding: 1.5rem;
 }
