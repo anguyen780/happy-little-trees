@@ -1,6 +1,6 @@
 {{!-- Show page content if logged in --}}
 {{#if loggedIn}}
-<section class="flex-row justify-center">
+<section>
     {{#each gallery.paintings as |painting|}}
     {{> painting-details}}
     {{/each}}
