@@ -1,9 +1,10 @@
 body {
     background-color: rgb(195, 244, 182);
+    color: #2E7D32;
 }
 
 i {
-    padding-left: 2rem;
+   padding: 0 1.5vw;
 }
 
 .brand-logo {
@@ -14,10 +15,11 @@ nav ul {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-h2, h3 {
-    color: #2E7D32;
+.responsive-video {
+    padding: 2rem;
 }
-/* .fa-tree {
-    padding-left: 3px;
-    margin-right: 3px;
-} */
+
+p {
+    font-weight: bold;
+    padding: 1.5rem;
+}
