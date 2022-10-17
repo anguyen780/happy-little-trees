@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { findUserByUsername, createUser } = require('../../model/helpers/user-helper');
+const { createWishListItem } = require('../../model/helpers/wishList-helper');
 const { badRequest, handleError } = require('./requestError');
+const { requireAuth } = require('../auth');
 
 function createSessionForUser(req, user, callback) {
     req.session.save(() => {
@@ -86,8 +88,16 @@ router.post('/logout', (req, res) => {
     }
 });
 
-router.post('/wishlist/:videoId', (req, res) => {
-    
+router.post('/wishlist/:videoId', requireAuth, async (req, res) => {
+    const userId = req.session.userId;
+    const videoId = req.params.videoId;
+    try {
+        const wishlistItem = await createWishListItem(userId, videoId);
+        res.status(201);
+        res.json(wishlistItem);
+    } catch(err) {
+        handleError(err, res);
+    }
 });
 
 module.exports = router;
