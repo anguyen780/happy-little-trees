@@ -1,0 +1,23 @@
+{{#if loggedIn}}
+  <div class="container">
+    <h3>Current Projects:</h3>
+
+    {{#each wishlists as |wishlist|}}
+      <div class="row">
+        <div class="col s9">
+          <h4><a href="/wishlist/{{wishlist.id}}">{{wishlist.name}}</a></h4>
+        </div>
+        <div class="col s2">
+          <button
+            class="waves-effect waves-light btn"
+            data-id="{{wishlist.id}}"
+          >DELETE</button>
+        </div>
+      </div>
+    {{/each}}
+    {{else}}
+    <a href="/login">Please login to see your Wish List.</a>
+  </div>
+{{/if}}
+
+<script src="./js/wishlist.js"></script>

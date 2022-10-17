@@ -15,4 +15,8 @@ router.get('/login', withAuth, (req, res) => {
     res.render('login');
 });
 
+router.get('/wishlist', withAuth, (req, res) => {
+    res.render('wishlist');
+});
+
 module.exports = router;
