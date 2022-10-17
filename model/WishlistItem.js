@@ -10,8 +10,13 @@ WishlistItem.init(
             primaryKey: true,
             autoIncrement: true
         },
-        body: {
-            type: DataTypes.STRING,
+        video_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'video',
+                key: 'id'
+            }
         },
         user_id: {
             type: DataTypes.INTEGER,

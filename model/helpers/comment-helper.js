@@ -25,4 +25,4 @@ async function deleteComment(id) {
     return;
 }
 
-module.exports = { createComment, findComment, deleteComment }
+module.exports = { createComment, findComment, deleteComment };
