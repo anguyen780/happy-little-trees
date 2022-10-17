@@ -21,4 +21,13 @@ async function createWishListItem(userId, videoId) {
     return wishlistItem;
 }
 
-module.exports = { findWishList, createWishListItem };
+async function deleteWishListItem(userId, videoId) {
+    await WishlistItem.destroy({
+        where: {
+            user_id: userId,
+            video_id: videoId
+        }
+    });
+}
+
+module.exports = { findWishList, createWishListItem, deleteWishListItem };
