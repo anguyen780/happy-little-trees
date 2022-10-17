@@ -7,7 +7,7 @@ const deleteWishList = async (event) => {
         body: JSON.stringify({ videoId: videoId }),
         headers: { "Content-Type": "application/json" },
     });
-    
+
     if (response.ok) {
         document.location.reload()
     } else {
@@ -16,10 +16,11 @@ const deleteWishList = async (event) => {
 
 };
 
-const deleteVideoButtons = document.querySelector(".delete-video") 
+const deleteVideoButtons = document.querySelectorAll(".delete-video")
 
-if (deleteVideoButtons){
-    deleteVideoButtons.addEventListener("click", deleteWishList);
+
+for (const deleteVideo of deleteVideoButtons) {
+    deleteVideo.addEventListener("click", deleteWishList);
 }
 
 

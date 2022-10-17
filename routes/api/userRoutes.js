@@ -92,11 +92,14 @@ router.post('/logout', (req, res) => {
 router.post('/wishlist', requireAuth, requireBody, async (req, res) => {
     const userId = req.session.userId;
     const videoId = req.body.videoId;
+    console.log(userId);
+    console.log(videoId);
     try {
         const wishlistItem = await createWishListItem(userId, videoId);
         res.status(201);
         res.json(wishlistItem);
     } catch(err) {
+        console.log(err);
         handleError(err, res);
     }
 });
