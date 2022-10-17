@@ -1,14 +1,14 @@
 {{#if loggedIn}}
-  <div class="container">
-    <h3>Current Projects:</h3>
+  <div class="wishlist-page container">
+    <h3>Wish List:</h3>
 
-    {{#each wishlists as |wishlist|}}
+    {{#each wishlistItemData as |wishlist|}}
       <div class="row">
         <div class="col s9">
-          <h4><a href="/wishlist/{{wishlist.id}}">{{wishlist.name}}</a></h4>
+          <h4><a href="/wishlist/{{wishlist.id}}">{{wishlist.video_id}}</a></h4>
         </div>
         <div class="col s2">
-          <button
+          <button id="delete-video"
             class="waves-effect waves-light btn"
             data-id="{{wishlist.id}}"
           >DELETE</button>

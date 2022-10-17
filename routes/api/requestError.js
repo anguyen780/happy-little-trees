@@ -8,7 +8,7 @@ class StatusError extends Error {
 // from https://github.com/Shengaero/tech-blog/blob/main/controllers/api/handleError.js
 function handleError(err, res) {
     if(err instanceof StatusError) {
-        res.status(err.statusCode);
+        res.status(err.status);
         res.json({ message: err.message });
     } else if(err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
         res.status(400);
