@@ -1,0 +1,20 @@
+<div class="container">
+  <h3>Videos:</h3>
+
+  {{#each allVideosData as |videos|}}
+    <div id="data-videoId" class="row">
+      <div class="col s9">
+        <h4>Episode: <a href="{{videos.url}}">{{videos.title}}</a></h4>
+      
+      </div>
+      <div class="col s2">
+        <button
+          class="save-video waves-effect waves-light btn"
+          data-videoId="{{videos.id}}"
+        >SAVE</button>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+<script src="./js/video.js"></script>
