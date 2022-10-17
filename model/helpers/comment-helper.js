@@ -1,4 +1,4 @@
-const Comment = require("../Comment");
+const { Comment } = require("../index");
 
 // create comment
 async function createComment(content, user_id) {
@@ -12,17 +12,16 @@ async function createComment(content, user_id) {
 // comment by id
 async function findComment(id) {
     const commentData = await Comment.findByPk({
-       id: id
+        id: id
     });
     return commentData;
 }
 
 // delete comment
 async function deleteComment(id) {
-    const commentData = await Comment.destroy({
-       id: id
+    await Comment.destroy({
+        id: id
     });
-    return;
 }
 
 module.exports = { createComment, findComment, deleteComment };

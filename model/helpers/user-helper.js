@@ -1,4 +1,4 @@
-const User = require("../User");
+const { User } = require("../index");
 
 // create user
 async function createUser(username, password) {

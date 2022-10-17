@@ -36,7 +36,8 @@ WishlistItem.init(
         underscored: true,
         timestamps: false,
         modelName: 'wishlistItem'
-    });
+    }
+);
 
 
 module.exports = WishlistItem;
