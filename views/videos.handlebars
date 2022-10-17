@@ -1,0 +1,20 @@
+<div class="container">
+  <h3>Videos:</h3>
+
+  {{#each csv as |videos|}}
+    <div id="data-videoId" class="row">
+      <div class="col s9">
+        <h4><a href="/video/:videoId"></a></h4>
+      </div>
+      <div class="col s2">
+        <button
+          id="save-video"
+          class="waves-effect waves-light btn"
+          data-id="{{videos.video_id}}"
+        >SAVE</button>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+<script src="./js/video.js"></script>

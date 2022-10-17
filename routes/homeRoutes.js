@@ -15,8 +15,16 @@ router.get('/login', withAuth, (req, res) => {
     res.render('login');
 });
 
-router.get('/wishlist', withAuth, (req, res) => {
-    res.render('wishlist');
+router.get('/videos', (req, res) => {
+    res.render('videos', {
+        logged_in: req.session.loggedIn
+    });
+});
+
+router.get('/wishlist', (req, res) => {
+    res.render('wishlist', {
+        logged_in: req.session.loggedIn
+    });
 });
 
 module.exports = router;

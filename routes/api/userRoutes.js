@@ -86,8 +86,4 @@ router.post('/logout', (req, res) => {
     }
 });
 
-router.post('/wishlist/:videoId', (req, res) => {
-    
-});
-
 module.exports = router;

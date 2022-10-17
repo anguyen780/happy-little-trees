@@ -1,8 +1,8 @@
-const deleteWishList = async (event) => {
+const saveVideos = async (event) => {
     event.preventDefault();
 
     if (req.session.loggedIn){
-        const response = await fetch('/api/user/wishlist', {
+        const response = await fetch('/api/user/videos', {
             method: "POST",
             body: JSON.stringify({videoId}),
             headers: { "Content-Type": "application/json"},
@@ -16,7 +16,4 @@ const deleteWishList = async (event) => {
     }
 };
 
-document.querySelector("#delete-video").addEventListener("click", deleteWishList);
-
-
-
+document.querySelector("#save-video").addEventListener("click", saveVideos);

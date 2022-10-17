@@ -1,23 +1,20 @@
-{{#if loggedIn}}
-  <div class="wishlist-page container">
-    <h3>Wish List:</h3>
+<div class="container">
+  <h3>Wish List:</h3>
 
-    {{#each wishlistItemData as |wishlist|}}
-      <div class="row">
-        <div class="col s9">
-          <h4><a href="/wishlist/{{wishlist.id}}">{{wishlist.video_id}}</a></h4>
-        </div>
-        <div class="col s2">
-          <button id="delete-video"
-            class="waves-effect waves-light btn"
-            data-id="{{wishlist.id}}"
-          >DELETE</button>
-        </div>
+  {{#each wishlistItemData as |wishlist|}}
+    <div class="row">
+      <div class="col s9">
+        <h4><a href="/wishlist/:videoId"></a></h4>
       </div>
-    {{/each}}
-    {{else}}
-    <a href="/login">Please login to see your Wish List.</a>
-  </div>
-{{/if}}
+      <div class="col s2">
+        <button
+          id="delete-video"
+          class="waves-effect waves-light btn"
+          data-id="{{wishlist.video_id}}"
+        >DELETE</button>
+      </div>
+    </div>
+  {{/each}}
+</div>
 
 <script src="./js/wishlist.js"></script>
