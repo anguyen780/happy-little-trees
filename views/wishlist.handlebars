@@ -1,0 +1,22 @@
+<div class="container">
+{{#if wishlistItemData.length}}
+  <h3>Wish List:</h3>
+  {{#each wishlistItemData as |wishlist|}}
+    <div class="row">
+      <div class="col s9">
+        <h4>Episode: <a href="{{wishlist.url}}">{{wishlist.title}}</a></h4>
+      </div>
+      <div class="col s2">
+        <button
+          class="delete-video waves-effect waves-light btn"
+          data-videoId="{{wishlist.wishlistItem.video_id}}"
+        >DELETE</button>
+      </div>
+    </div>
+  {{/each}}
+  {{else}}
+  <h4>You do not have any saved videos.</h4>
+  {{/if}}
+</div>
+
+<script src="./js/wishlist.js"></script>
