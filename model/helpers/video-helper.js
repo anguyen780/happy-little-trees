@@ -8,4 +8,4 @@ async function findVideo(id) {
     return videoData;
 }
 
-module.exports = { findVideo }
+module.exports = { findVideo };
