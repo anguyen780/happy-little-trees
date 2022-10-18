@@ -1,10 +1,10 @@
 <div class="container">
 {{#if wishlistItemData.length}}
-  <h3>Wish List:</h3>
+  <h3 class="center-align wishlist-h3">Wish List</h3>
   {{#each wishlistItemData as |wishlist|}}
     <div class="row">
       <div class="col s9">
-        <h4>Episode: <a href="{{wishlist.url}}">{{wishlist.title}}</a></h4>
+        <h4>Episodes: <a href="{{wishlist.url}}">{{wishlist.title}}</a></h4>
       </div>
       <div class="col s2">
         <button
@@ -15,7 +15,7 @@
     </div>
   {{/each}}
   {{else}}
-  <h4>You do not have any saved videos.</h4>
+  <h4 class="center-align wishlist-h4">You do not have any saved videos.</h4>
   {{/if}}
 </div>
 

@@ -1,20 +1,17 @@
 {{!-- Show page content if logged in --}}
-{{#if loggedIn}}
+{{!-- {{#if loggedIn}}
 <section>
-  {{#each gallery.paintings as |painting|}}
-  {{> painting-details}}
-  {{/each}}
-  {{else}}
-  <!-- Otherwise, remind user to login -->
+    {{#each gallery.paintings as |painting|}}
+    {{> painting-details}}
+    {{/each}}
+{{else}} --}}
+<!-- Otherwise, remind user to login -->
 </section>
 
 <div class="video-container">
   <iframe width="484" height="363" src="https://www.youtube.com/embed/AjT8UhDAVHI" title="Bob Ross joy of painting intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-<p>Bob Ross once said, "I think there's an artist hidden at the bottom of every single one of us." Here at Happy Little
-  Trees you can join a community of likeminded people who are trying to find the artist within. You can watch every
-  episode of "The Joy of Painting," share your thoughts with others, as well as which episode you are painting along
-  with. We are a community of Happy Little Trees, and we believe what Bob believed, "There's nothing wrong with having a
-  tree as a friend."</p>
-<h3><a href="/login">Login</a> or <a href="signup">sign up</a> up for more content!</h3 {{/if}}
+<p class="center-align">Bob Ross once said, "I think there's an artist hidden at the bottom of every single one of us." Here at Happy Little Trees you can join a community of likeminded people who are trying to find the artist within. You can watch every episode of "The Joy of Painting," share your thoughts with others, as well as which episode you are painting along with. We are a community of Happy Little Trees, and we believe what Bob believed, "There's nothing wrong with having a tree as a friend."</p>
+
+{{!-- {{/if}} --}}

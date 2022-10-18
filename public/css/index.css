@@ -25,3 +25,7 @@ p {
     font-weight: bold;
     padding: 1.5rem;
 }
+
+.videos-h3, .wishlist-h3 {
+    padding: 50px 20px;
+}
